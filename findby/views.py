@@ -11,4 +11,4 @@ def index(request):
     paginator: Paginator = Paginator(products, 10)  # page당 10개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {'products': page_obj}
-    return render(request, 'find_kream_product/products.html', context)
+    return render(request, 'findby/products.html', context)
