@@ -6,6 +6,9 @@
 
  
 ### Summary
+| [x] | [ ] |
+|-----|-----|
+| 완료  | 미완료 |
 
 - [x] index page
 ![img_1.png](readme_image/img_1.png)
