@@ -5,5 +5,4 @@
 - 해당 내용을 검색하면 kream에서 최상단에 있는 아이템을 읽어온다.
 
  
-
-![img.png](./readme_image/overview.gif)
+<img src='./readme_image/overview.gif' width="60%">
