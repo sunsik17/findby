@@ -6,4 +6,4 @@
 
  
 
-![img.png](readme_image/img.png)
+![img.png](./readme_image/overview.gif)
