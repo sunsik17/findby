@@ -15,7 +15,13 @@
 
 ---
 
-- [x] 페이지 네이션 
+- [x] nav
+![img.png](readme_image/img_6.png)
+
+---
+
+- [x] 페이지 네이션
+
 - 31(마지막) 페이지
 ![img.png](readme_image/img_4.png) 
 - 30 페이지
