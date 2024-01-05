@@ -7,4 +7,5 @@ app_name = 'findby'
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/product', views.register_product, name='register_product'),
+    path('delete/products', views.delete_products, name='delete_products'),
 ]

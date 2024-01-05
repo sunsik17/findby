@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
-from findby.form import SearchForm
+from findby.form import SearchForm, SelectForm
 from findby.models import Product
 
 
@@ -22,6 +22,20 @@ def register_product(request):
         if form.is_valid():
             content = form.cleaned_data['content']
             print(form)
+            return redirect('findby:index')
+    else:
+        form = SearchForm()
+
+    context = {'form': form}
+
+    return render(request, 'findby/products.html', context)
+
+
+def delete_products(request):
+    if request.method == 'POST':
+        form = SelectForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['select_product_id'])
             return redirect('findby:index')
     else:
         form = SearchForm()
