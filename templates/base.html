@@ -12,44 +12,6 @@
     <title>find kream product</title>
 </head>
 <body>
-<h3 class="mt-5 mb-3 mx-5">신규 등록 상품</h3>
-
-<form method="post" action="{% url 'findby:register_product' %}" class="row row-cols-lg-auto g-3 align-items-center">
-    <div class="col-auto text-center mx-5">
-        <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-        <select class="form-select" id="inlineFormSelectPref">
-            <!-- 카테고리 셀렉트 코드를 넣어주세요-->
-            <option selected value="">category</option>
-            <option value="신발">신발</option>
-            <option value="상의">상의</option>
-            <option value="하의">하의</option>
-            <option value="잡화">잡화</option>
-        </select>
-    </div>
-    {% csrf_token %}
-    {% if form.errors %}
-        <div>
-            {% for field in form %}
-                {% if field.errors %}
-                    <div>
-                        <strong>{{ field.label }}</strong>
-                        {{ field.errors }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
-    <!-- input 입력창 코드를 넣어주세요 -->
-    <div class="col-auto">
-        <label for="content" class="visually-hidden">검색 : </label>
-        <input name="content" type="text" class="form-control" id="content" placeholder="검색어를 입력하세요">
-    </div>
-    <div class="col-auto">
-        <!-- 조회버튼 코드를 넣어주세요 -->
-        <input type="submit" value="조회" class="btn btn-primary" role="button">
-    </div>
-</form>
-
 <!-- 기본 템플릿 안에 삽입될 내용을 작성 -->
 {% block content %}
 {% endblock %}
