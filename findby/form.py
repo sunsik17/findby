@@ -6,5 +6,8 @@ class SearchForm(forms.Form):
 
 
 class SelectForm(forms.Form):
-    id: int = forms.IntegerField(label='select_product_id')
+    select_product_id = forms.MultipleChoiceField(
+        label='select_product_id',
+        widget=forms.CheckboxSelectMultiple
+    )
 
