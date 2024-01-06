@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
-from findby.form import SearchForm, SelectForm
+from findby.form import SearchForm
+from findby.model_builder import ProductBuilder
 from findby.models import Product
+from findby.simp_crawling import simp_crawling
 
 
 # Create your views here.
@@ -16,12 +18,14 @@ def index(request):
     return render(request, 'findby/products.html', context)
 
 
-def register_product(request):
+def search_product(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
             content = form.cleaned_data['content']
-            print(form)
+            data = simp_crawling(words=content)
+            if __data_is_valid(data):
+                __to_product(data)
             return redirect('findby:index')
     else:
         form = SearchForm()
@@ -33,13 +37,31 @@ def register_product(request):
 
 def delete_products(request):
     if request.method == 'POST':
-        form = SelectForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data['select_product_id'])
-            return redirect('findby:index')
-    else:
-        form = SearchForm()
+        print(request.POST)
+        # if form:
+        #     print(form)
+        #     raise
 
-    context = {'form': form}
+    return redirect('findby:index')
 
-    return render(request, 'findby/products.html', context)
+
+def __to_product(data: str) -> None:
+    product_info = data.split("\n")
+    brand = product_info[1]
+    name = product_info[2]
+    amount = product_info[5]
+
+    product = (ProductBuilder()
+               .set_name(name)
+               .set_price(amount)
+               .set_category("신발")
+               .set_brand(brand)
+               .build())
+
+    product.save()
+
+
+def __data_is_valid(data: str) -> bool:
+    if not data:
+        return False
+    return True
