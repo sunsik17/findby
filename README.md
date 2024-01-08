@@ -85,7 +85,12 @@ def __data_is_valid(data: str) -> bool:
 
 ---
 
-- [ ] select category 값으로 get 요청하여 category data조회 기능
+- [x] select category 값으로 get 요청하여 category data조회 기능
 
+- category=신발
+![img.png](readme_image/img_7.png)
+
+- category=상의
+![img.png](readme_image/img_8.png)
 
 ---
