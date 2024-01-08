@@ -84,3 +84,8 @@ def __data_is_valid(data: str) -> bool:
 ![img_3.png](readme_image/img_3.png)
 
 ---
+
+- [ ] select category 값으로 get 요청하여 category data조회 기능
+
+
+---

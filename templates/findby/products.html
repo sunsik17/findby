@@ -5,18 +5,21 @@
         <h3 class="mx-auto">신규 상품 등록</h3>
     </div>
     <div class="container d-flex" style="max-width: 100%">
-        <form method="post" action="{% url 'findby:search_product' %}"
-              class="row row-cols-lg-auto g-1 align-items-center">
+        <form method="get" action="{% url 'findby:index' %}"
+              class="row row-cols-lg-auto g-1 align-items-center" id="categoryForm">
             <div class="col-auto text-center">
                 <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
                 <select class="form-select" id="inlineFormSelectPref" name="category">
-                    <option selected value="">category</option>
+                    <option value="">category</option>
                     <option value="신발">신발</option>
                     <option value="상의">상의</option>
                     <option value="하의">하의</option>
                     <option value="잡화">잡화</option>
                 </select>
             </div>
+        </form>
+        <form method="post" action="{% url 'findby:search_product' %}"
+              class="row row-cols-lg-auto g-1 align-items-center">
             {% csrf_token %}
             {% if form.errors %}
                 <div>
@@ -44,7 +47,6 @@
                 <input type="submit" class="btn btn-danger mt-3" value="선택된 상품 삭제" role="button">
             </div>
         </form>
-
     </div>
 
     <div class="container my-3 mx-auto" style="max-width: 100%">
@@ -127,4 +129,14 @@
         </ul>
         <!-- 페이지 네이션 끝 -->
     </div>
+    
+    <script>
+    document.getElementById("categoryForm").addEventListener("submit", onSubmit)
+    function onSubmit(event) {
+        event.preventDefault()
+    }
+    document.getElementById("inlineFormSelectPref").addEventListener("change", () => {
+        document.getElementById("categoryForm").submit()
+    })
+    </script>
 {% endblock %}
