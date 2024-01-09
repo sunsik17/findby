@@ -10,6 +10,7 @@ class Product(models.Model):
     category: str = models.CharField(max_length=50, null=True)
     price: str = models.CharField(max_length=50, null=True)
     brand: str = models.CharField(max_length=50, null=True)
+    link: str = models.CharField(max_length=255, null=True)
     create_date: datetime = models.DateTimeField(auto_now_add=True)
     modify_date: datetime = models.DateTimeField(auto_now=True)
 

@@ -21,5 +21,9 @@ class ProductBuilder:
         self.product.brand = brand
         return self
 
+    def set_link(self, link: str):
+        self.product.link = link
+        return self
+
     def build(self):
         return self.product
