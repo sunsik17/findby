@@ -1,18 +1,6 @@
 from django import forms
 
 
-class SearchForm(forms.Form):
-    category = forms.ChoiceField(label='category')
-    content = forms.CharField(max_length=30, label='content', min_length=1)
-
-
-class SelectForm(forms.Form):
-    select_product_id = forms.MultipleChoiceField(
-        label='select_product_id',
-        widget=forms.CheckboxSelectMultiple
-    )
-
-
 class SearchProductForm(forms.Form):
-    content = forms.CharField(max_length=30, min_length=1, required=True)
-    category = forms.CharField(max_length=30, required=True)
+    category = forms.CharField(label='category', required=True)
+    contents = forms.CharField(max_length=30, min_length=1, label='contents', required=True)

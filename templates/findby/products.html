@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="col-auto">
-                    <label for="content" class="visually-hidden">검색 : </label>
-                    <input name="content" type="text" class="form-control" id="content" placeholder="검색어를 입력하세요">
+                    <label for="contents" class="visually-hidden">검색 : </label>
+                    <input name="contents" type="text" class="form-control" id="contents" placeholder="검색어를 입력하세요">
                 </div>
                 <div class="col-auto">
                     <input type="submit" value="조회" class="btn btn-primary" role="button">
@@ -51,7 +51,7 @@
 
         <div class="d-flex align-items-center">
             <div>
-                <span>테이블 분리 : ç</span>
+                <span>테이블 분리 :</span>
             </div>
             <div>
                 <form method="get" action="{% url 'findby:index' %}" id="search_category_form">
