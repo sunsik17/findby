@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django.db import models
 
+from findby.schemas import ProductDto
+
 
 # Create your models here.
 
@@ -17,3 +19,10 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def from_dto(self, dto: ProductDto):
+        self.name = dto.name
+        self.category = dto.category
+        self.price = dto.price
+        self.brand = dto.brand
+        self.link = dto.link
+        return self

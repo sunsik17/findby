@@ -4,6 +4,8 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
+from findby.schemas import ProductDto
+
 KREAM_URL = 'https://kream.co.kr/search?keyword= '
 
 
@@ -13,7 +15,7 @@ def __simp_web_driver() -> webdriver.Chrome:
     return webdriver.Chrome(options=chrome_options)
 
 
-def simp_crawling(words: str, category: str) -> [str]:
+def simp_crawling(words: str, category: str) -> ProductDto:
     driver = __simp_web_driver()
     driver.get(KREAM_URL + words + category)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -26,4 +28,9 @@ def simp_crawling(words: str, category: str) -> [str]:
     finally:
         driver.quit()
 
-    return result
+    brand = result[1]
+    name = result[2]
+    amount = result[5]
+    category = result[len(result) - 2]
+    link = result[len(result) - 1]
+    return ProductDto(name=name, brand=brand, price=amount, category=category, link=link)
