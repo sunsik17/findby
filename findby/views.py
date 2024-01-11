@@ -27,13 +27,12 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def search_product(request: HttpRequest) -> HttpResponse:
-    if request.method == 'POST':
-        content = str(request.POST['content'])
-        category = str(request.POST['category'])
-        if category != "" or content != "":
-            data = simp_crawling(words=content, category=category)
-            if __data_is_valid(data):
-                __to_product(data)
+    form = SearchProductForm(request.POST or None)
+
+    if form.is_valid():
+        data = simp_crawling(words=form.content, category=form.category)
+        if __data_is_valid(data):
+            __to_product(data)
 
     return redirect('findby:index')
 
