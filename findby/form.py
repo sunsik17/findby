@@ -12,3 +12,7 @@ class SelectForm(forms.Form):
         widget=forms.CheckboxSelectMultiple
     )
 
+
+class SearchProductForm(forms.Form):
+    content = forms.CharField(max_length=30, min_length=1, required=True)
+    category = forms.CharField(max_length=30, required=True)
