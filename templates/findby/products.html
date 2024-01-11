@@ -4,48 +4,73 @@
     <div class="mt-5 mb-3 mx-3">
         <h3 class="mx-auto">신규 상품 등록</h3>
     </div>
-    <div class="container d-flex" style="max-width: 100%">
-        <form method="post" action="{% url 'findby:search_product' %}"
-              class="row row-cols-lg-auto g-1 align-items-center">
-            {% csrf_token %}
-            {% if form.errors %}
-                <div>
-                    {% for field in form %}
-                        {% if field.errors %}
-                            <div>
-                                <strong>{{ field.label }}</strong>
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+    <div class="container d-flex justify-content-between" style="max-width: 100%">
+        <div class="d-flex">
+            <form method="post" action="{% url 'findby:search_product' %}"
+                  class="row row-cols-lg-auto g-1 align-items-center">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <div>
+                                    <strong>{{ field.label }}</strong>
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="col-auto text-center">
+                    <label class="visually-hidden" for="category">카테고리</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="">category</option>
+                        <option value="신발">신발</option>
+                        <option value="상의">상의</option>
+                        <option value="하의">하의</option>
+                        <option value="잡화">잡화</option>
+                    </select>
                 </div>
-            {% endif %}
-            <div class="col-auto text-center">
-                <label class="visually-hidden" for="category">카테고리</label>
-                <select class="form-select" id="category" name="category">
-                    <option value="">category</option>
-                    <option value="신발">신발</option>
-                    <option value="상의">상의</option>
-                    <option value="하의">하의</option>
-                    <option value="잡화">잡화</option>
-                </select>
-            </div>
-        
+
+                <div class="col-auto">
+                    <label for="content" class="visually-hidden">검색 : </label>
+                    <input name="content" type="text" class="form-control" id="content" placeholder="검색어를 입력하세요">
+                </div>
+                <div class="col-auto">
+                    <input type="submit" value="조회" class="btn btn-primary" role="button">
+                </div>
+            </form>
             <div class="col-auto">
-                <label for="content" class="visually-hidden">검색 : </label>
-                <input name="content" type="text" class="form-control" id="content" placeholder="검색어를 입력하세요">
+                <form method="post" action="{% url 'findby:delete_products' %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="선택된 상품 삭제" role="button">
+                </form>
             </div>
-            <div class="col-auto">
-                <input type="submit" value="조회" class="btn btn-primary" role="button">
+
+        </div>
+
+        <div class="d-flex align-items-center">
+            <div>
+                <span>테이블 분리 : ç</span>
             </div>
-        </form>
-        <form method="post" action="{% url 'findby:delete_products' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="col-auto mx-3" style="margin-top: -16px">
-                <input type="submit" class="btn btn-danger mt-3" value="선택된 상품 삭제" role="button">
+            <div>
+                <form method="get" action="{% url 'findby:index' %}" id="search_category_form">
+                    <label class="visually-hidden" for="search_category">카테고리</label>
+                    <select class="form-select" id="search_category" name="search_category">
+                        <option value=""
+                                {% if not search_category or search_category == "" %}selected{% endif %}>
+                            카테고리
+                        </option>
+                        <option value="신발" {% if search_category == "신발" %}selected{% endif %}>신발</option>
+                        <option value="상의" {% if search_category == "상의" %}selected{% endif %}>상의</option>
+                        <option value="하의" {% if search_category == "하의" %}selected{% endif %}>하의</option>
+                        <option value="잡화" {% if search_category == "잡화" %}selected{% endif %}>잡화</option>
+                    </select>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
+
 
     <div class="container my-3 mx-auto" style="max-width: 100%">
         <table class="table">
@@ -129,14 +154,9 @@
     </div>
 
     <script>
-        let selectForm = document.getElementById("inlineFormSelectPref");
-        selectForm.addEventListener("change", (ev) => {
-            ev.preventDefault()
-            const categoryForm = document.getElementById("categoryForm");
-            categoryForm.addEventListener("submit", (ev) => {
-                ev.preventDefault();
-            })
-            categoryForm.submit()
-    });
+        const selectForm = document.getElementById("search_category_form");
+        selectForm.addEventListener("change", () => {
+            selectForm.submit()
+        });
     </script>
 {% endblock %}
