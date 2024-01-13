@@ -28,9 +28,13 @@ def simp_crawling(words: str, category: str) -> ProductDto:
     finally:
         driver.quit()
 
+    length = len(result)
     brand = result[1]
     name = result[2]
-    amount = result[5]
-    category = result[len(result) - 2]
-    link = result[len(result) - 1]
+    if length > 8:
+        amount = result[5]
+    else:
+        amount = result[4]
+    category = result[length - 2]
+    link = result[length - 1]
     return ProductDto(name=name, brand=brand, price=amount, category=category, link=link)
