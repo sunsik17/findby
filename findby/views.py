@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
-from findby.form import SearchProductForm
+from findby.form import SearchProductForm, DeleteProductIdsForm
 from findby.models import Product
 from findby.simp_crawling import simp_crawling
 
@@ -33,11 +33,15 @@ def search_product(request: HttpRequest) -> HttpResponse:
 
 
 def delete_products(request):
-    if request.method == 'POST':
-        print(request.POST)
-        # if form:
-        #     print(form)
-        #     raise
+    print(request.POST)
+    sp = request.POST.get('selected_products')
+    print(sp)
+    form = DeleteProductIdsForm(request.POST)
+    print(form)
+
+    # if form.is_valid():
+    #     product_ids = form.cleaned_data['product_id']
+    #     print(product_ids)
 
     return redirect('findby:index')
 

@@ -41,9 +41,10 @@
                 </div>
             </form>
             <div class="col-auto">
-                <form method="post" action="{% url 'findby:delete_products' %}">
+                <form id="deleteForm" method="post" action="{% url 'findby:delete_products' %}">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-danger" value="선택된 상품 삭제" role="button">
+                    <input type="hidden" name="selected_products" id="selectedProducts" value="">
+                    <input type="button" class="btn btn-danger" value="선택된 상품 삭제" role="button" onclick="submitForm()">
                 </form>
             </div>
 
@@ -91,7 +92,7 @@
                         <td style="width: 5%">
                             <label for="select_product_id_list">
                                 <input type="checkbox" name="select_product_id_list" value="{{ product.id }}"
-                                       id="select_product_id_list">
+                                       class="selectCheckbox">
                             </label>
                         </td>
                         <td style="width: 10%">
@@ -118,7 +119,8 @@
             <!-- 이전 페이지 -->
             {% if products.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?search_category={{ search_category }}&page={{ products.previous_page_number }}">이전</a>
+                    <a class="page-link"
+                       href="?search_category={{ search_category }}&page={{ products.previous_page_number }}">이전</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -130,11 +132,13 @@
                 {% if page_number >= products.number|add:-5 and page_number <= products.number|add:5 %}
                     {% if page_number == products.number %}
                         <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
+                            <a class="page-link"
+                               href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
+                            <a class="page-link"
+                               href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
                         </li>
                     {% endif %}
                 {% endif %}
@@ -142,7 +146,8 @@
             <!-- 다음 페이지 -->
             {% if products.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?search_category={{ search_category }}&page={{ products.next_page_number }}">다음</a>
+                    <a class="page-link"
+                       href="?search_category={{ search_category }}&page={{ products.next_page_number }}">다음</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -158,5 +163,17 @@
         selectForm.addEventListener("change", () => {
             selectForm.submit()
         });
+
+        function submitForm() {
+            let selectedProducts = [];
+            const checkboxes = document.querySelectorAll('.selectCheckbox:checked');
+
+            checkboxes.forEach(function (checkbox) {
+                selectedProducts.push(checkbox.value);
+            });
+
+            document.getElementById('selectedProducts').value = JSON.stringify(selectedProducts);
+            document.getElementById('deleteForm').submit();
+        }
     </script>
 {% endblock %}
