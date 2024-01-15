@@ -7,5 +7,4 @@ class SearchProductForm(forms.Form):
 
 
 class DeleteProductIdsForm(forms.Form):
-    selected_products: [] = forms.MultipleChoiceField(label='selected_products', required=True,
-                                                      widget=forms.CheckboxSelectMultiple)
+    selected_products = forms.CharField(required=True)
