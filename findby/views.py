@@ -33,15 +33,10 @@ def search_product(request: HttpRequest) -> HttpResponse:
 
 
 def delete_products(request):
-    print(request.POST)
-    sp = request.POST.get('selected_products')
-    print(sp)
     form = DeleteProductIdsForm(request.POST)
-    print(form)
-
-    # if form.is_valid():
-    #     product_ids = form.cleaned_data['product_id']
-    #     print(product_ids)
+    if form.is_valid():
+        product_ids: [] = form.cleaned_data['selected_products'].split(',')
+        Product.objects.filter(id__in=product_ids).delete()
 
     return redirect('findby:index')
 

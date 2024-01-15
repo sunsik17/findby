@@ -43,7 +43,7 @@
             <div class="col-auto">
                 <form id="deleteForm" method="post" action="{% url 'findby:delete_products' %}">
                     {% csrf_token %}
-                    <input type="hidden" name="selected_products" id="selectedProducts" value="">
+                    <input type="hidden" name="selected_products" id="selected_products">
                     <input type="button" class="btn btn-danger" value="선택된 상품 삭제" role="button" onclick="submitForm()">
                 </form>
             </div>
@@ -120,7 +120,7 @@
             {% if products.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?search_category={{ search_category }}&page={{ products.previous_page_number }}">이전</a>
+                       href="?{% if search_category %}search_category={{ search_category }}&{% endif %}page={{ products.previous_page_number }}">이전</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -133,12 +133,12 @@
                     {% if page_number == products.number %}
                         <li class="page-item active" aria-current="page">
                             <a class="page-link"
-                               href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
+                               href="?{% if search_category %}search_category={{ search_category }}&{% endif %}page={{ page_number }}">{{ page_number }}</a>
                         </li>
                     {% else %}
                         <li class="page-item">
                             <a class="page-link"
-                               href="?search_category={{ search_category }}&page={{ page_number }}">{{ page_number }}</a>
+                               href="?{% if search_category %}search_category={{ search_category }}&{% endif %}page={{ page_number }}">{{ page_number }}</a>
                         </li>
                     {% endif %}
                 {% endif %}
@@ -147,7 +147,7 @@
             {% if products.has_next %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?search_category={{ search_category }}&page={{ products.next_page_number }}">다음</a>
+                       href="?{% if search_category %}search_category={{ search_category }}&{% endif %}page={{ products.next_page_number }}">다음</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -172,7 +172,7 @@
                 selectedProducts.push(checkbox.value);
             });
 
-            document.getElementById('selectedProducts').value = JSON.stringify(selectedProducts);
+            document.getElementById('selected_products').value = selectedProducts.join(',');
             document.getElementById('deleteForm').submit();
         }
     </script>
