@@ -3,7 +3,7 @@
 - python 3.12 & django 5.x & selenium
 
 **[db]**
-- sqlite
+- sqlite -> mysql 변경
 
 ### Goal
 - 내가 kream에서 검색하고 싶은 것을 find-by에서 찾아 볼 수 있다.
